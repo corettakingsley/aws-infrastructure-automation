@@ -74,6 +74,11 @@ GitHub will be used for source control and project documentation.
 - Infrastructure testing.
 - Documentation of deployment and operational procedures.
 
+
+### Architecture Diagram
+
+![Nova Retail AWS Architecture](architecture/nova-retail-architecture.png)
+
 ## Disclaimer
 
 This is an independent educational and portfolio project developed using a personal AWS account. It is not affiliated with any employer or client organisation.
