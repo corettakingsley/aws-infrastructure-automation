@@ -16,7 +16,7 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids = [aws_security_group.rds.id]
   publicly_accessible    = false
 
-  multi_az               = false
+  multi_az                = false
   backup_retention_period = 1
 
   auto_minor_version_upgrade = true
