@@ -79,6 +79,44 @@ GitHub will be used for source control and project documentation.
 
 ![Nova Retail AWS Architecture](architecture/nova-retail-architecture.png)
 
+
+
+## Network Traffic Flow
+
+The Nova Retail architecture uses a controlled traffic flow to protect application and database resources.
+
+### 1. Incoming Application Traffic
+
+1. External users access the application over the internet.
+2. Traffic reaches the Application Load Balancer (ALB) through the Internet Gateway.
+3. The ALB forwards requests to healthy EC2 instances in the private application subnets.
+
+### 2. Application Processing
+
+1. EC2 instances receive application requests from the ALB.
+2. The application processes incoming requests.
+3. When database access is required, the application communicates with the Amazon RDS database through its private network connection.
+
+### 3. Database Communication
+
+- Amazon RDS is deployed in private subnets.
+- Database access is restricted through Security Groups.
+- The database is not directly accessible from the public internet.
+- Only authorised application resources should be allowed to communicate with the database.
+
+### 4. Amazon S3 Communication
+
+The application can access Amazon S3 through an S3 Gateway VPC Endpoint.
+
+This allows supported S3 traffic to remain on the AWS network without requiring a public internet route or NAT Gateway.
+
+### 5. Internet Connectivity Considerations
+
+The initial architecture does not include a NAT Gateway.
+
+Consequently, EC2 instances in private subnets do not have general outbound internet access. This is an intentional cost-saving decision in the initial design.
+
+If outbound internet connectivity becomes necessary, a NAT Gateway or another suitable egress solution can be introduced.
 ## Disclaimer
 
 This is an independent educational and portfolio project developed using a personal AWS account. It is not affiliated with any employer or client organisation.
