@@ -171,3 +171,54 @@ The initial architecture does not include a NAT Gateway.
 Consequently, EC2 instances in private subnets do not have general outbound internet access. This is an intentional cost-saving decision.
 
 If outbound internet connectivity or additional AWS service integrations become necessary, a NAT Gateway, VPC endpoints, or another suitable egress solution can be introduced depending on the requirements.
+
+
+
+## AWS Deployment and Testing
+
+### Deployment Results
+
+The Nova Retail infrastructure was successfully deployed to AWS in the Cape Town region (`af-south-1`) using Terraform.
+
+The deployment provisioned 24 AWS resources, including:
+
+- Amazon VPC and subnets across two Availability Zones
+- Internet Gateway and route tables
+- Security groups
+- Application Load Balancer
+- EC2 Auto Scaling Group
+- Amazon RDS MySQL database
+- Amazon S3 Gateway VPC Endpoint
+
+### Application Verification
+
+The application was successfully accessed through the public Application Load Balancer DNS endpoint.
+
+Traffic flowed through the following architecture:
+
+Browser → Application Load Balancer → Private EC2 Instance → Web Application
+
+The application returned the expected Nova Retail landing page.
+
+### Deployment Evidence
+
+- Architecture diagram: `docs/architecture/nova-retail-architecture.png`
+- Application screenshot: `docs/screenshots/aws/nova-retail-application-running.png`
+
+### Infrastructure Cleanup
+
+After successful testing, Terraform was used to destroy the deployed infrastructure.
+
+**Terraform result:**
+- Resources created: 24
+- Resources destroyed: 24
+- Remaining Terraform-managed resources: 0
+
+AWS CLI checks also confirmed that the EC2 instances, load balancer, RDS database, EBS volumes, NAT Gateways and Elastic IP addresses associated with the checks were no longer present.
+
+### Current Project Status
+
+AWS infrastructure deployment, application verification and cleanup completed.
+
+The current application is a basic static web demonstration. MySQL provisioning is implemented, but application-to-database integration remains future work.
+
